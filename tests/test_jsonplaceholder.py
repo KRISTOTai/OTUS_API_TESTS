@@ -33,10 +33,10 @@ def test_create_jsonplaceholder_posts(base_data_for_jsonplaceholder, user_id):
     print("\nОтвет метода POST_create_jsonplaceholder_posts: успех")
 
 
-@pytest.mark.parametrize(("user_id", "id"), [(2, 15), (4, 34)], ids=[tuple, tuple])
-def test_jsonplaceholder_posts_get(base_data_for_jsonplaceholder, user_id, id):
+@pytest.mark.parametrize(("user_id", "id_"), [(2, 15), (4, 34)], ids=[tuple, tuple])
+def test_jsonplaceholder_posts_get(base_data_for_jsonplaceholder, user_id, id_):
     base_url, *_ = base_data_for_jsonplaceholder
-    posts_url = f'posts/{id}'
+    posts_url = f'posts/{id_}'
     response = requests.get(base_url + posts_url)
     print(response.json())
     assert 200 == response.status_code, f'Ошибка: ожидался статус-код 200, но получен {response.status_code}'
@@ -46,8 +46,8 @@ def test_jsonplaceholder_posts_get(base_data_for_jsonplaceholder, user_id, id):
 
 def test_jsonplaceholder_posts_delete(base_data_for_jsonplaceholder):
     base_url, *_ = base_data_for_jsonplaceholder
-    id = 1
-    delete_url = f'posts/{id}'
+    id_ = 1
+    delete_url = f'posts/{id_}'
     response = requests.delete(base_url + delete_url)
     assert 200 == response.status_code, f'Ошибка: ожидался статус-код 200, но получен {response.status_code}'
     print("\nОтвет метода DELETE_jsonplaceholder_posts_delete: успех")
