@@ -66,10 +66,3 @@ def url_and_status_code(request):
     url = request.config.getoption("--url")
     status_code = request.config.getoption("--status_code")
     return url, status_code
-
-
-def test_url_status(url_and_status_code):
-    url, expected_status_code = url_and_status_code
-    response = requests.get(url)
-    assert response.status_code == expected_status_code, f"Статус отличен от ожидаемого: {expected_status_code}"
-    print("test_url_status - успех")
