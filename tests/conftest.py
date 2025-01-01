@@ -53,16 +53,35 @@ def base_data_for_jsonplaceholder():
 def pytest_addoption(parser):
     """Добавление кастомных опций для pytest."""
     parser.addoption(
-        "--url", action="store", default="https://ya.ru", help="URL to test"
+        "--url", action="store", default="https://api.gectaro.com/v1/", help="URL to test Gectaro"
+    )
+    parser.addoption(
+        "--url_default", action="store", default="https://ya.ru/", help="URL to test Url and status code"
     )
     parser.addoption(
         "--status_code", action="store", type=int, default=200, help="Expected status code"
+    )
+    parser.addoption(
+        "--auth_key", action="store", type=str, default='Bearer _xbYD3PwYW0N11-ycESdZY0eFudvy-QE', help="api_key"
+    )
+    parser.addoption(
+        "--header", action="store", type=str, default='content-type: application/json; charset=UTF-8',
+        help="content-type"
     )
 
 
 @pytest.fixture()
 def url_and_status_code(request):
     """Фикстура для получения URL и ожидаемого статус-кода."""
-    url = request.config.getoption("--url")
+    url = request.config.getoption("--url_default")
     status_code = request.config.getoption("--status_code")
     return url, status_code
+
+
+@pytest.fixture()
+def gectaro_key_project(request):
+    """Фикстура с api_key Gectaro  и номером проекта"""
+    project = 'projects/106725/'
+    api_key = request.config.getoption('--auth_key')
+    # headers = request.config.getoption('--header')
+    return project, api_key
