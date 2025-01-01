@@ -103,12 +103,7 @@ def test_gectaro_put_resource_requests_neg(request, gectaro_key_project, volume,
         'is_over_budget': '0'
     }
     response = requests.post(url, headers={'Authorization': key, 'Content-Type': 'multipart/form-data'}, json=body)
-    if response.status_code == 404:
-        print(f'Статус код согласно ожиданиям {response.status_code}')
-    elif response.status_code == 405:
-        print(f'Статус код согласно ожиданиям {response.status_code}')
-    else:
-        print(f'Провал, неожиданный код {response.status_code}')
+    assert response.status_code in (404, 405), f'Статус код вне пределов ожидания и равен {response.status_code}'
 
 
 @pytest.mark.skip(reason='не создается заявка')
